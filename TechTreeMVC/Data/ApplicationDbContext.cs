@@ -21,6 +21,7 @@ namespace TechTreeMVC.Data
         [StringLength(250)]
         public string Address1 { get; set; }
 
+       
         [StringLength(250)]
         public string Address2 { get; set; }
 

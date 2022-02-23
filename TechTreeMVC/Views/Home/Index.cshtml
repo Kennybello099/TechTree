@@ -6,3 +6,13 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@*This line of code was brought from the boostrap 4 in the UserLoginPartial*@
+<div class="modal fade" id="UserLoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <partial name="_UserLoginPartial">
+</div>
+
+@section Scripts{ 
+    <script src="~/js/UserLogin.js" asp-append-version="true"></script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
