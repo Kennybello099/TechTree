@@ -13,7 +13,7 @@ using TechTreeMVC.Extensions;
 namespace TechTreeMVC.Areas.TheAdmin.Controllers
 {
     [Area("TheAdmin")]
-    [Authorize(Roles = "TheAdmin")]
+    [Authorize(Roles = "Admin")]
 
     public class CategoryItemController : Controller
     {

@@ -12,7 +12,7 @@ using TechTreeMVC.Entities;
 namespace TechTreeMVC.Areas.TheAdmin.Controllers
 {
     [Area("TheAdmin")]
-    [Authorize(Roles = "TheAdmin")]
+    [Authorize(Roles = "Admin")]
 
     public class MediaTypeController : Controller
     {

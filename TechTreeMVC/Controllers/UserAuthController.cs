@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace TechTreeMVC.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid login attempt!");
                 }
             }
-            return PartialView("_userLoginPartial", loginModel);
+            return PartialView("_UserLoginPartial", loginModel);
 
         }
         [AllowAnonymous]
@@ -67,5 +68,62 @@ namespace TechTreeMVC.Controllers
             }
         }
 
+        public async Task<IActionResult> RegisterUser(RegistrationModel registrationModel)
+        {
+            registrationModel.RegistrationInValid = "true";
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    
+                    UserName = registrationModel.Email,
+                    Email = registrationModel.Email,
+                    PhoneNumber = registrationModel.PhoneNumber,
+                    FirstName = registrationModel.FirstName,
+                    LastName = registrationModel.LastName,
+                    Address1 = registrationModel.Address1,
+                    Address2 = registrationModel.Address2,
+                    PostalCode = registrationModel.PostalCode
+                    
+
+                };
+
+                var result = await _userManager.CreateAsync(user, registrationModel.Password);
+
+                if(result.Succeeded)
+                {
+                    registrationModel.RegistrationInValid = "";
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return PartialView("_UserRegistrationPartial", registrationModel);
+                }
+                else
+                {
+                    AddErrorsToModelState(result);
+                }
+
+            }
+
+            return PartialView("_UserRegistrationPartial", registrationModel);
+        }
+        [AllowAnonymous]
+        public async Task<bool> UserNameExists(string userName)
+        {
+            bool userNameExists =  await _context.Users.AnyAsync(u => u.UserName.ToUpper() == userName.ToUpper());
+
+            if (userNameExists)
+                return true;
+
+            return false;
+           
+           
+        }
+        private void AddErrorsToModelState(IdentityResult identityResult)
+        {
+            foreach (var error in identityResult.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+        }
     }
 }
