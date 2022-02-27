@@ -5,7 +5,7 @@ $(function () {
 
     function onUserLoginClick() {
 
-        var url = "/UserAuth/Login";
+        var url = "UserAuth/Login";
 
         var antiForgeryToken = $("#UserLoginModal input[name='__RequestVerificationToken']").val();
 

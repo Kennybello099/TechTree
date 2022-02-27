@@ -4,14 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TechTreeMVC.Interfaces;
 
 namespace TechTreeMVC.Entities
 {
-    public class Category
+    public class Category : IPrimaryProperties
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Hey! This filed is required!")]
+        [Required(ErrorMessage ="Hey! This fieldd is required!")]
         [StringLength(200, MinimumLength =2)]
         public string Title { get; set; }
 

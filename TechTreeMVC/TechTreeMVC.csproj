@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\TheAdmin\Data\" />
-    <Folder Include="Areas\TheAdmin\Models\" />
   </ItemGroup>
 
 </Project>
